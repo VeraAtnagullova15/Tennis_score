@@ -19,9 +19,6 @@ out/
 # Maven
 target/
 
-# OS
-.DS_Store
-
 ### Eclipse ###
 .apt_generated
 .classpath
