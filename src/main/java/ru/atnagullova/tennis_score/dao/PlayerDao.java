@@ -6,11 +6,11 @@ import org.hibernate.query.Query;
 import ru.atnagullova.tennis_score.entity.Player;
 import ru.atnagullova.tennis_score.util.SessionFactoryManager;
 
-import java.util.List;
+import java.util.Optional;
 
 public class PlayerDao {
 
-    public boolean isPlayerExist(String name) {
+    public Optional<Player> find (String name) {
 
         try (Session session = SessionFactoryManager.getSessionFactory().openSession();) {
 
@@ -20,18 +20,15 @@ public class PlayerDao {
 
             Query<Player> query = session.createQuery("from Player p where p.name=?1", Player.class);
             query.setParameter(1, name);
-            List<Player> players = query.getResultList();
+            Optional<Player> player = query.uniqueResultOptional();
 
             transaction.commit();
 
-            if (!players.isEmpty()) {
-                return true;
-            }
-            return false;
+            return player;
         }
     }
 
-    public void persistPlayer(String name) {
+    public Player saveAndReturn(String name) {
 
         Player player = new Player(name);
 
@@ -43,8 +40,9 @@ public class PlayerDao {
 
             session.persist(player);
 
-            System.out.println(session.createQuery("from Player", Player.class).list());
             transaction.commit();
         }
+        return player;
     }
+
 }
