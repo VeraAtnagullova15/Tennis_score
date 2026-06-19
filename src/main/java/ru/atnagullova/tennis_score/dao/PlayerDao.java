@@ -22,6 +22,8 @@ public class PlayerDao {
             query.setParameter(1, name);
             Optional<Player> player = query.uniqueResultOptional();
 
+            System.out.println(player);
+
             transaction.commit();
 
             return player;
@@ -39,6 +41,8 @@ public class PlayerDao {
             transaction.begin();
 
             session.persist(player);
+
+            System.out.println(player);
 
             transaction.commit();
         }
