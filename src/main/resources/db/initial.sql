@@ -1,4 +1,4 @@
-INSERT INTO players (name) VALUES ('Tigran');
+INSERT INTO players (name) VALUES ('Tomas');
 INSERT INTO players (name) VALUES ('John');
 INSERT INTO players (name) VALUES ('Serena');
 INSERT INTO players (name) VALUES ('Marat');

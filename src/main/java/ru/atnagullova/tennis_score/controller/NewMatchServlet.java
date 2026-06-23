@@ -35,6 +35,12 @@ public class NewMatchServlet extends HttpServlet {
         String player1 = request.getParameter("playerOne");
         String player2 = request.getParameter("playerTwo");
 
+        if (!PlayerValidator.isValidPlayerName(player1)) {
+            throw new InvalidPlayerNameException("Player name cannot be blank");
+        }
+        if (!PlayerValidator.isValidPlayerName(player2)) {
+            throw new InvalidPlayerNameException("Player name cannot be blank");
+        }
         if (player1.equals(player2)) {
             throw new InvalidPlayerNameException("Player names cannot be the same");
         }
