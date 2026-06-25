@@ -8,30 +8,35 @@ import java.util.UUID;
 @Getter
 public class ActiveMatch {
 
+    private static final int NUMBER_SET_WIN_MATCH = 2;
+
     private final UUID id;
 
     private final Long playerOneId;
-
     private final Long playerTwoId;
 
-    private int playerOnePoints;
-
-    private int playerTwoPoints;
-
-    private int playerOneGames;
-
-    private int playerTwoGames;
-
-    private int playerOneSets;
-
-    private int playerTwoSets;
+    private PlayerScore playerOneScore;
+    private PlayerScore playerTwoScore;
 
     public ActiveMatch(Long playerOneId, Long playerTwoId) {
         id = UUID.randomUUID();
         this.playerOneId = playerOneId;
         this.playerTwoId = playerTwoId;
+        playerOneScore = new PlayerScore();
+        playerTwoScore = new PlayerScore();
     }
 
+    public PlayerScore scoreOf(Long playerId) {
+        return playerOneId.equals(playerId) ? playerOneScore : playerTwoScore;
+    }
 
+    public boolean isMatchFinished() {
+        return (playerOneScore.getSet() >= NUMBER_SET_WIN_MATCH
+                || playerTwoScore.getSet() >= NUMBER_SET_WIN_MATCH);
+    }
+
+    public Long getWinnerId() {
+        return playerOneScore.getSet() >= NUMBER_SET_WIN_MATCH ? playerOneId : playerTwoId;
+    }
 
 }
