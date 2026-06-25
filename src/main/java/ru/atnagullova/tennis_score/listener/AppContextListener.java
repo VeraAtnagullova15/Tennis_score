@@ -5,6 +5,8 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import ru.atnagullova.tennis_score.dao.PlayerDao;
+import ru.atnagullova.tennis_score.service.FinishedMatchesPersistenceService;
+import ru.atnagullova.tennis_score.service.MatchScoreCalculationService;
 import ru.atnagullova.tennis_score.service.OngoingMatchesService;
 import ru.atnagullova.tennis_score.service.PlayerService;
 
@@ -19,10 +21,14 @@ public class AppContextListener implements ServletContextListener {
         PlayerDao playerDao = new PlayerDao();
         PlayerService playerService = new PlayerService(playerDao);
         OngoingMatchesService ongoingMatchesService = new OngoingMatchesService();
+        MatchScoreCalculationService calculationService = new MatchScoreCalculationService();
+        FinishedMatchesPersistenceService matchesPersistenceService = new FinishedMatchesPersistenceService();
 
         context.setAttribute("playerDao", playerDao);
         context.setAttribute("playerService", playerService);
         context.setAttribute("ongoingMatchesService", ongoingMatchesService);
+        context.setAttribute("calculationService", calculationService);
+        context.setAttribute("matchesPersistenceService", matchesPersistenceService);
 
     }
 }
