@@ -5,7 +5,7 @@ import ru.atnagullova.tennis_score.match_state.ActiveMatch;
 
 public class MatchScoreCalculationService {
 
-    private static final int MIN_NUMBER_OF_REGULAR_POINTS = 3;
+    private static final int MIN_NUMBER_OF_REGULAR_POINTS = 4;
     private static final int MIN_GAMES_WIN_SET = 6;
     private static final int DIFFERENCE_FOR_WINNING_GAME = 2;
     private static final int DIFFERENCE_FOR_WINNING_SET = 2;
@@ -19,9 +19,9 @@ public class MatchScoreCalculationService {
             activeMatch.scoreOf(winnerId).increasePoints();
 
             if (isGameWon(activeMatch)) {
+                addGame(activeMatch, winnerId);
                 activeMatch.getPlayerOneScore().resetPoints();
                 activeMatch.getPlayerTwoScore().resetPoints();
-                addGame(activeMatch, winnerId);
             }
 
         } else {
@@ -29,7 +29,7 @@ public class MatchScoreCalculationService {
         }
     }
 
-    private boolean isGameWon(ActiveMatch activeMatch) {
+    public boolean isGameWon(ActiveMatch activeMatch) {
         int player1 = activeMatch.getPlayerOneScore().getPoint();
         int player2 = activeMatch.getPlayerTwoScore().getPoint();
         return (player1 >= MIN_NUMBER_OF_REGULAR_POINTS
@@ -48,7 +48,7 @@ public class MatchScoreCalculationService {
         }
     }
 
-    private boolean isTieBreak(ActiveMatch activeMatch) {
+    public boolean isTieBreak(ActiveMatch activeMatch) {
         int player1 = activeMatch.getPlayerOneScore().getGame();
         int player2 = activeMatch.getPlayerTwoScore().getGame();
         return (player1 == NUMBER_OF_GAMES_FOR_TIE_BREAK
@@ -60,8 +60,8 @@ public class MatchScoreCalculationService {
         activeMatch.scoreOf(winnerId).increaseTieBreakPoints();
 
         if (isTieBreakWon(activeMatch)) {
-            activeMatch.getPlayerOneScore().resetPoints();
-            activeMatch.getPlayerTwoScore().resetPoints();
+            activeMatch.getPlayerOneScore().resetGames();
+            activeMatch.getPlayerTwoScore().resetGames();
             addSet(activeMatch, winnerId);
         }
     }

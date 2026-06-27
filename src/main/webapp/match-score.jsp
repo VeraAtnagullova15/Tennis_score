@@ -18,14 +18,14 @@
     <section class="nav-header">
         <div class="brand">
             <div class="nav-toggle">
-                <img src="images/menu.png" alt="Logo" class="logo">
+                <img src="/webapp/images/menu.png" alt="Logo" class="logo">
             </div>
             <span class="logo-text">TennisScoreboard</span>
         </div>
         <div>
             <nav class="nav-links">
-                <a class="nav-link" href="#">Home</a>
-                <a class="nav-link" href="#">Matches</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/">Matches</a>
             </nav>
         </div>
     </section>
@@ -46,21 +46,29 @@
                 </thead>
                 <tbody>
                 <tr class="player1">
-                    <td class="table-text">Rafael Nadal</td>
-                    <td class="table-text">2</td>
-                    <td class="table-text">4</td>
-                    <td class="table-text">40</td>
+                    <td class="table-text">${match.playerOneName}</td>
+                    <td class="table-text">${match.playerOneSets}</td>
+                    <td class="table-text">${match.playerOneGames}</td>
+                    <td class="table-text">${match.playerOnePoints}</td>
                     <td class="table-text">
-                        <div class="score-btn">Score</div>
+                        <form method="post"
+                              action="${pageContext.request.contextPath}/match-score?uuid=${uuid}">
+                            <input type="hidden" name="playerId" value="${match.playerOneId}">
+                            <button type="submit" class="score-btn">Score</button>
+                        </form>
                     </td>
                 </tr>
                 <tr class="player2">
-                    <td class="table-text">Roger Federer</td>
-                    <td class="table-text">2</td>
-                    <td class="table-text">3</td>
-                    <td class="table-text">15</td>
+                    <td class="table-text">${match.playerTwoName}</td>
+                    <td class="table-text">${match.playerTwoSets}</td>
+                    <td class="table-text">${match.playerTwoGames}</td>
+                    <td class="table-text">${match.playerTwoPoints}</td>
                     <td class="table-text">
-                        <div class="score-btn">Score</div>
+                        <form method="post"
+                              action="${pageContext.request.contextPath}/match-score?uuid=${uuid}">
+                            <input type="hidden" name="playerId" value="${match.playerTwoId}">
+                            <button type="submit" class="score-btn">Score</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

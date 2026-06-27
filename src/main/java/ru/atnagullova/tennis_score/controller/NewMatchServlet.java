@@ -13,6 +13,7 @@ import ru.atnagullova.tennis_score.service.PlayerService;
 import ru.atnagullova.tennis_score.util.PlayerValidator;
 
 import java.io.IOException;
+import java.util.UUID;
 
 
 @WebServlet("/new-match")
@@ -27,7 +28,7 @@ public class NewMatchServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/new-match.html").forward(request, response);
+        request.getRequestDispatcher("/new-match.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,13 +52,15 @@ public class NewMatchServlet extends HttpServlet {
 
         ActiveMatch activeMatch = new ActiveMatch(
                 playerOne.getId(),
-                playerTwo.getId());
+                playerTwo.getId(),
+                playerOne.getName(),
+                playerTwo.getName());
 
         ongoingMatchesService.save(activeMatch);
+        String uuid = activeMatch.getId().toString();
 
         response.sendRedirect(
-                request.getContextPath() + "/match-score?uuid=" + activeMatch.getId()
-        );
+                request.getContextPath() + "/match-score?uuid=" + uuid);
     }
 
 }
