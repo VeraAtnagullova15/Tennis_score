@@ -1,13 +1,16 @@
 package ru.atnagullova.tennis_score.match_state;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class PlayerScore {
 
     private static final int ZERO = 0;
 
+    @Setter
     private int point;
+    @Setter
     private int game;
     private int set;
     private int tieBreakPoint;

@@ -15,13 +15,18 @@ public class ActiveMatch {
     private final Long playerOneId;
     private final Long playerTwoId;
 
+    private final String playerOneName;
+    private final String playerTwoName;
+
     private PlayerScore playerOneScore;
     private PlayerScore playerTwoScore;
 
-    public ActiveMatch(Long playerOneId, Long playerTwoId) {
+    public ActiveMatch(Long playerOneId, Long playerTwoId, String playerOneName, String playerTwoName) {
         id = UUID.randomUUID();
         this.playerOneId = playerOneId;
         this.playerTwoId = playerTwoId;
+        this.playerOneName = playerOneName;
+        this.playerTwoName = playerTwoName;
         playerOneScore = new PlayerScore();
         playerTwoScore = new PlayerScore();
     }
