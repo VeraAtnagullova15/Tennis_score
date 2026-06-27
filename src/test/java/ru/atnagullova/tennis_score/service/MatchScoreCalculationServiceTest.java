@@ -21,8 +21,7 @@ public class MatchScoreCalculationServiceTest {
 
         activeMatch.getPlayerOneScore().setPoint(3);
         activeMatch.getPlayerTwoScore().setPoint(3);
-
-        calculationService.addPoint(activeMatch, 1L);
+        activeMatch.getPlayerOneScore().increasePoints();
 
         Assertions.assertFalse(calculationService.isGameWon(activeMatch));
     }
@@ -32,7 +31,7 @@ public class MatchScoreCalculationServiceTest {
 
         activeMatch.getPlayerOneScore().setPoint(3);
         activeMatch.getPlayerTwoScore().setPoint(0);
-        calculationService.addPoint(activeMatch, 1L);
+        activeMatch.getPlayerOneScore().increasePoints();
 
         Assertions.assertTrue(calculationService.isGameWon(activeMatch));
     }
@@ -42,8 +41,7 @@ public class MatchScoreCalculationServiceTest {
 
         activeMatch.getPlayerOneScore().setGame(6);
         activeMatch.getPlayerTwoScore().setGame(6);
-
-        calculationService.addPoint(activeMatch, 1L);
+        activeMatch.getPlayerOneScore().increasePoints();
 
         Assertions.assertTrue(calculationService.isTieBreak(activeMatch));
     }
