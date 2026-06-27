@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class PlayerDao {
 
-    public Optional<Player> find (String name) {
+    public Optional<Player> findByName(String name) {
 
         try (Session session = SessionFactoryManager.getSessionFactory().openSession();) {
 
@@ -23,6 +23,21 @@ public class PlayerDao {
             Optional<Player> player = query.uniqueResultOptional();
 
             System.out.println(player);
+
+            transaction.commit();
+
+            return player;
+        }
+    }
+
+    public Player findById(Long id) {
+        try (Session session = SessionFactoryManager.getSessionFactory().openSession();) {
+
+            Transaction transaction = session.getTransaction();
+
+            transaction.begin();
+
+            Player player = session.find(Player.class, id);
 
             transaction.commit();
 

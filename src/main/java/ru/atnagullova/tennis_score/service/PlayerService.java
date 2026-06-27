@@ -11,7 +11,7 @@ public class PlayerService {
     private PlayerDao playerDao;
 
     public Player saveOrGet(String name) {
-        return playerDao.find(name)
+        return playerDao.findByName(name)
                 .orElseGet(() -> playerDao.saveAndReturn(name));
     }
 
