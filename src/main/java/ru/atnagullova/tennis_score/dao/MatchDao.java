@@ -25,7 +25,6 @@ public class MatchDao {
             Player player2 = playerDao.findById(activeMatch.getPlayerTwoId());
             Player winner = playerDao.findById(activeMatch.getWinnerId());
 
-
             Match match = new Match(player1, player2, winner);
 
             session.persist(match);

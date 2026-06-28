@@ -11,6 +11,7 @@ import ru.atnagullova.tennis_score.match_state.ActiveMatch;
 import ru.atnagullova.tennis_score.model.MatchScoreModel;
 import ru.atnagullova.tennis_score.service.FinishedMatchesPersistenceService;
 import ru.atnagullova.tennis_score.service.MatchScoreCalculationService;
+import ru.atnagullova.tennis_score.service.MatchScoreExample;
 import ru.atnagullova.tennis_score.service.OngoingMatchesService;
 
 import java.io.IOException;
@@ -20,12 +21,14 @@ import java.util.UUID;
 public class MatchScoreServlet extends HttpServlet {
 
     private OngoingMatchesService ongoingMatchesService;
-    private MatchScoreCalculationService calculationService;
+//    private MatchScoreCalculationService calculationService;
     private FinishedMatchesPersistenceService matchesPersistenceService;
+
+    private MatchScoreExample matchScoreExample = new MatchScoreExample();
 
     public void init() {
         ongoingMatchesService = (OngoingMatchesService) getServletContext().getAttribute("ongoingMatchesService");
-        calculationService = (MatchScoreCalculationService) getServletContext().getAttribute("calculationService");
+//        calculationService = (MatchScoreCalculationService) getServletContext().getAttribute("calculationService");
         matchesPersistenceService = (FinishedMatchesPersistenceService) getServletContext()
                 .getAttribute("matchesPersistenceService");
     }
@@ -54,7 +57,7 @@ public class MatchScoreServlet extends HttpServlet {
 
         ActiveMatch activeMatch = ongoingMatchesService.get(uuid);
 
-        calculationService.addPoint(activeMatch, winnerId);
+        matchScoreExample.increasePoint(activeMatch, winnerId);
 
         MatchScoreModel scoreModel = MatchScoreMapper.INSTANCE.toMatchScoreModel(activeMatch);
 
